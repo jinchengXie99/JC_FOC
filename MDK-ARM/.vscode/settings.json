@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.csv": "csv",
+        "stm32f4xx_hal.h": "c"
+    }
+}
