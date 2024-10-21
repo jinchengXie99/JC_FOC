@@ -3,7 +3,7 @@
 "jc_foc\main.o"
 "jc_foc\gpio.o"
 "jc_foc\adc.o"
-"jc_foc\dma.o"
+"jc_foc\tim.o"
 "jc_foc\stm32f4xx_it.o"
 "jc_foc\stm32f4xx_hal_msp.o"
 "jc_foc\stm32f4xx_hal_pcd.o"

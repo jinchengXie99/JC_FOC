@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lksscope appVersion="v1.3.5">
+    <params>
+        <param name="linkType" value="0"/>
+        <param name="jClock" value="1000000"/>
+        <param name="uClock" value="1000000"/>
+        <param name="commPort" value=""/>
+        <param name="commBaud" value="9600"/>
+        <param name="bleName" value=""/>
+        <param name="localIP" value=""/>
+        <param name="localPort" value=""/>
+        <param name="remoteIP" value=""/>
+        <param name="remotePort" value=""/>
+        <param name="rttAddr" value="20000000"/>
+        <param name="rttFreq" value="16000"/>
+        <param name="sampleInterval" value="10"/>
+        <param name="uiInterval" value="50"/>
+        <param name="maxPoint" value="100"/>
+        <param name="checkAxf" value="1"/>
+    </params>
+    <layouts>
+        <param name="geometry" value="AdnQywADAAD/////////+AAACgAAAAVwAAACzwAAAVMAAAcwAAAEGwAAAAACAAAACgAAAAAAAAAAFwAACf8AAAVv"/>
+        <param name="state" value="AAAA/wAAAAD9AAAAAgAAAAAAAAGJAAADf/wCAAAAAvsAAAAIepdT41v8gioBAAAAUgAAAcAAAAAAAAAAAPwAAAIWAAABuwAAAAAA////+gAAAAACAAAAAvsAAAAIW/xRZVPYkc8BAAAAAP////8AAAAAAAAAAPsAAAAKgepbmk5JU9iRzwEAAAAA/////wAAAAAAAAAAAAAAAQAABfMAAAN//AIAAAAH+wAAAAwAUgBUAFRUfU7kiEwAAAAAAP////8AAAAAAAAAAPsAAAAKAFIAVABUZXBjbgAAAAAA/////wAAAAAAAAAA+wAAAAZbxFtYVmgAAAAAAP////8AAAAAAAAAAPsAAAAIj9CITGXlX9cAAAAAAP////8AAAAAAAAAAPwAAABOAAADhQAAAAAA/////AEAAAAC+wAAAAZm8n6/ADABAAAByQAABAcAAAAAAAAAAPsAAAAGZXBQPAAwAQAABdQAAAGsAAAAAAAAAAD7AAAACGVwY25mPnk6AQAAAFIAAAN/AAAAAAAAAAD7AAAACHU1Zzpjp1I2AAAAAAD/////AAAArAD///8AAAoAAAAE8AAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAAAAAASAHQAbwBvAGwAQgBhAHIAXwAyAQAAAMT/////AAAAAAAAAAAAAAAWAHQAbwBvAGwAQgBhAHIATABvAGcAbwEAAAIJ/////wAAAAAAAAAA"/>
+    </layouts>
+    <tabs curPage="0">
+        <tab checked="1" title="标签页0" state="AAAA/wAAAAD9AAAAAgAAAAEAAAdpAAAEwvwCAAAABPsAAAAIj9CITGXlX9cAAAAAAP////8AAABdAP////sAAAAMAFIAVABUVH1O5IhMAAAAAAD/////AAAAwAD////7AAAACgBSAFQAVGVwY24AAAAAAP////8AAAEPAP////sAAAAGdvh1NW1BAwAAAoUAAAFEAAAHaQAABMIAAAADAAAHaQAABML8AQAAAAH8AAAAAAAAB2kAAAAAAP////wBAAAAAvsAAAAGZvJ+vwAwAAAAAAAAAAVvAAAAAAAAAAD7AAAABmVwUDwAMAMAAAKMAAAAagAAB18AAADgAAAAAAAAAAAAAAAEAAAABAAAAAgAAAAI/AAAAAA=" geometry="AdnQywADAAAAAAAAAAAAAAAAB2gAAATBAAAAAAAAAAD//////////wAAAAAAAAAACgAAAAAAAAAAAAAAB2gAAATB"/>
+    </tabs>
+    <forms>
+        <form type="0" title="Form"/>
+        <form type="1" lv-width="150,100,100,100,100" title="自定义参数"/>
+        <form type="2" mapFile="./MDK-ARM/JC_FOC/JC_FOC.axf" lv-width="295,100,100,100,320,100,100,204,100,100" title="导入参数"/>
+        <form type="3" title="运行日志" visible="0" page="0" floating="0"/>
+        <form type="4" encode="GBK" sync2File="0" title="RTT命令行" visible="0" page="0" checkTStamp="0" floating="0" syncFilePath=""/>
+        <form type="5" scatterStyle="1" subMode="0" min="-500" trigValue="0" xCount="1000" max="500" autoRange="1" lineStyle="1" title="RTT数据" trigName="" visible="0" page="0" scrollType="0" trigType="0" floating="0" xTag="0"/>
+        <form type="12" lv-width="150,100,100,100,100" title="电机控制" visible="0" page="-1" floating="0">
+            <var name="" desc="速度设定" lower="0" step="1" upper="100"/>
+            <var name="" desc="电流设定" lower="0" step="1" upper="100"/>
+            <var name="" desc="功率设定" lower="0" step="1" upper="100"/>
+            <var name="" desc="电机启停" lower="0" step="1" upper="1"/>
+        </form>
+        <form type="6" title="Form" visible="0" page="-1" floating="0"/>
+        <form type="7" lv-width="308,150,100,100,100,100,100,120,100,100,100" title="数值0" visible="1" page="0" floating="1">
+            <var addr="0x20000158" name="HAL_ADCEx_InjectedConvCpltCallback##test" formula="" showType="Unsigned" interval="10" desc="HAL_ADCEx_InjectedConvCpltCallback##test" color=""/>
+        </form>
+        <form xTag="0" lineStyle="1" floating="1" max="500" min="-500" trigValue="0" scatterStyle="1" trigType="0" autoRange="1" subMode="0" xCount="1000" scrollType="0" filterType="1" refType="0" title="相电流" type="8" visible="1" refName="" trigName="" page="0" refValue="0">
+            <var name="HAL_ADCEx_InjectedConvCpltCallback##test" desc="HAL_ADCEx_InjectedConvCpltCallback##test" color="#ff0000" subPlot="0"/>
+        </form>
+    </forms>
+</lksscope>

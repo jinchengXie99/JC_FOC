@@ -81,3 +81,12 @@ ctrlp.root
 
 DebugConfig/  
 OBJ/
+*.uvoptx
+*.uvguix.cheng
+*.axf
+*.lnp
+*.htm
+*.build_log.htm
+*.uvguix.cheng
+*.dep
+*.lnp

@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
-#include "dma.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -54,6 +53,22 @@
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+float ADCbuffer[3];
+void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
+{
+
+  ADCbuffer[0] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
+  ADCbuffer[1] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_2);
+  ADCbuffer[2] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_3);
+
+  static uint16_t test = 0;
+  if (test++ > 65530)
+    test = 0;
+
+  //	HAL_Delay(1000);
+
+  //    HAL_ADCEx_InjectedStart_IT(&hadc1);
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -90,7 +105,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USB_DEVICE_Init();
   MX_ADC1_Init();
   MX_TIM1_Init();
@@ -99,11 +113,17 @@ int main(void)
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,400);//不能设置的过大
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2,4800);//4800为最大占空比
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3,0);//4800为最大占空比
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 400);  // 不能设置的过�?
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 4800); // 4800为最大占空比
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);    // 4800为最大占空比
+
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 1300); // 4800为最大占空比
+                                                      //  HAL_ADCEx_InjectedStart(&hadc1);
+
+  HAL_ADCEx_InjectedStart_IT(&hadc1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,9 +134,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-    HAL_Delay(1000);
-    // Vofa_JustFloat(&VBUS, 1);
+    //    HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+    //    HAL_Delay(1000);
+
+    Vofa_JustFloat(ADCbuffer, 3);
   }
   /* USER CODE END 3 */
 }
@@ -167,18 +188,7 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-/* USER CODE END 4 */<<<<<<<<<<<<<<<<<<<<<<<< CodeGeeX Inline Diff>>>>>>>>>>>>>>>>>>>>>>>>
-+// Configure the PWM complementary output
-+HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1N); // Start PWM on TIM1 channel 1N for complementary output
-+
-+/* USER CODE END 4 */
-+
-+/**
-+ * @brief  This function is executed in case of error occurrence.
-+ * @retval None
-+ */
-
-<<<<<<<<<<<<<<<<<<<<<<<< CodeGeeX Inline Diff>>>>>>>>>>>>>>>>>>>>>>>>
+/* USER CODE END 4 */
 
 /**
  * @brief  This function is executed in case of error occurrence.
