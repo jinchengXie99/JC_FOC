@@ -90,3 +90,7 @@ OBJ/
 *.uvguix.cheng
 *.dep
 *.lnp
+MDK-ARM/JC_FOC/JC_FOC.axf
+MDK-ARM/JC_FOC/JC_FOC.build_log.htm
+MDK-ARM/JC_FOC/JC_FOC_JC_FOC.dep
+MDK-ARM/JC_FOC/JC_FOC.build_log.htm

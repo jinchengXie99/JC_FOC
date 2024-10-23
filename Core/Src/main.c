@@ -19,12 +19,15 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "can.h"
+#include "spi.h"
 #include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "APPMain.h"
 #include "vofa.h"
 /* USER CODE END Includes */
 
@@ -77,9 +80,9 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
 
@@ -108,20 +111,28 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_ADC1_Init();
   MX_TIM1_Init();
+  MX_CAN1_Init();
+  MX_SPI3_Init();
+  MX_ADC2_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 400);  // 不能设置的过�?
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 4800); // 4800为最大占空比
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);    // 4800为最大占空比
+  
+   APPMain_Init();
+   
+//   
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+//  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+//  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+//  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+//  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 400);  // 不能设置的过�?
+//  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 4800); // 4800为最大占空比
+//  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);    // 4800为最大占空比
 
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 1300); // 4800为最大占空比
-                                                      //  HAL_ADCEx_InjectedStart(&hadc1);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+//  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 1300); // 4800为最大占空比
+//                                                      //  HAL_ADCEx_InjectedStart(&hadc1);
 
   HAL_ADCEx_InjectedStart_IT(&hadc1);
   /* USER CODE END 2 */
@@ -131,11 +142,13 @@ int main(void)
 
   while (1)
   {
+	  
+	    APPMain_Loop();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //    HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-    //    HAL_Delay(1000);
+//       HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//       HAL_Delay(1000);
 
     Vofa_JustFloat(ADCbuffer, 3);
   }
@@ -143,22 +156,22 @@ int main(void)
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
-   */
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
   /** Initializes the RCC Oscillators according to the specified parameters
-   * in the RCC_OscInitTypeDef structure.
-   */
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -173,8 +186,9 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -191,9 +205,9 @@ void SystemClock_Config(void)
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -205,14 +219,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 /**
- * @brief  Reports the name of the source file and the source line number
- *         where the assert_param error has occurred.
- * @param  file: pointer to the source file name
- * @param  line: assert_param error line source number
- * @retval None
- */
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
