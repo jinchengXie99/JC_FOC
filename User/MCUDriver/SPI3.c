@@ -1,7 +1,7 @@
 #include "SPI3.h"
 
 #include "main.h"
-extern SPI_HandleTypeDef hspi3;
+//extern SPI_HandleTypeDef hspi3;
 
 
 
@@ -29,7 +29,7 @@ void SPI3TransmitData(uint16_t data)
 {
     uint16_t txData;
     txData = data;
-    HAL_SPI_Transmit(&hspi3,(uint8_t *)(&txData),1,1000);
+//    HAL_SPI_Transmit(&hspi3,(uint8_t *)(&txData),1,1000);
 }
 /*************************************************************
 ** Function name:       SPI3ReceiveData
@@ -41,7 +41,7 @@ void SPI3TransmitData(uint16_t data)
 uint16_t SPI3ReceiveData(void)
 {
     uint16_t rxData;
-    HAL_SPI_Receive(&hspi3,(uint8_t *)(&rxData),1,1000);
+//    HAL_SPI_Receive(&hspi3,(uint8_t *)(&rxData),1,1000);
     return rxData;
 }
 
@@ -57,6 +57,6 @@ uint16_t SPI3TransmitReceiveData(uint16_t data)
 {
     uint16_t txData;
 	uint16_t rxData;
-    HAL_SPI_TransmitReceive(&hspi3,(uint8_t *)(&txData),(uint8_t *)(&rxData),1,1000);
+//    HAL_SPI_TransmitReceive(&hspi3,(uint8_t *)(&txData),(uint8_t *)(&rxData),1,1000);
     return rxData;
 }

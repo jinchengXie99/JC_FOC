@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+//#include "vofa.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -61,6 +61,16 @@ void Error_Handler(void);
 #define LED_GREEN_GPIO_Port GPIOB
 #define LED_RED_Pin GPIO_PIN_1
 #define LED_RED_GPIO_Port GPIOB
+#define NSCS_DRV8301_Pin GPIO_PIN_9
+#define NSCS_DRV8301_GPIO_Port GPIOC
+#define SCLK_DRV8301_Pin GPIO_PIN_10
+#define SCLK_DRV8301_GPIO_Port GPIOC
+#define SDO_DRV8301_Pin GPIO_PIN_11
+#define SDO_DRV8301_GPIO_Port GPIOC
+#define SDI_DRV8301_Pin GPIO_PIN_12
+#define SDI_DRV8301_GPIO_Port GPIOC
+#define EN_GATE_Pin GPIO_PIN_5
+#define EN_GATE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 #define Encoder_Z_Pin GPIO_PIN_13

@@ -8,6 +8,9 @@
 
 #include "SpeedPIDConfig.h"
 #include "PositionPIDConfig.h"
+
+
+#include "DRV8301.h"
 /*************************************************************
 ** Function name:      PerDriverMain_Init
 ** Descriptions:       外设初始化
@@ -19,6 +22,9 @@
 *************************************************************/
 void PerDriverMain_Init(void)
 {
+	
+   	DRV8301Init();
+	
 	HAL_Delay(2000);
 	LEDConfig_Init();
 	FOCConfig_Init();

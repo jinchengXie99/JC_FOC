@@ -45,4 +45,17 @@ void Vofa_JustFloat(float *_data, uint8_t _num)
     float f3[3]={88.77,0.66,55.44};
     Vofa_JustFloat(f3, 3);
 */
+
+unsigned short usbtemp[64];
+void USBV_printf(const char *format,...){
+
+	unsigned short len;
+	va_list args;
+	va_start (args,format);
+	len = vsnprintf((char*)usbtemp,sizeof(usbtemp),(char*)format,args);
+	va_end(args);
+	CDC_Transmit_FS((uint8_t*)usbtemp,len);
+
+}
+
 #endif 
